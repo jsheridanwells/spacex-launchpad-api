@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using LaunchData.Lib.LaunchData;
 using LaunchData.Lib.Models;
@@ -11,7 +12,7 @@ namespace LaunchData.Lib.Services
         {
             _getLaunchData = getLaunchData; 
         }
-        public async Task<Launch> GetLaunchData()
+        public async Task<List<Launch>> GetLaunchData()
         {
             return await _getLaunchData.ReturnLaunchData();
         }

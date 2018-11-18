@@ -3,12 +3,13 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using LaunchData.Lib.Models;
+using System.Collections.Generic;
 
 namespace LaunchData.Lib.LaunchData
 {
     public class GetLaunchData : IGetLaunchData
     {
-        public async Task<Launch> ReturnLaunchData()
+        public async Task<List<Launch>> ReturnLaunchData()
         {
             using (var client = new HttpClient())
             {
@@ -19,7 +20,7 @@ namespace LaunchData.Lib.LaunchData
                 {
                     json = await content.ReadAsStringAsync();
                 }
-                return JsonConvert.DeserializeObject<Launch>(json);
+                return JsonConvert.DeserializeObject<List<Launch>>(json);
             }
         }
     }

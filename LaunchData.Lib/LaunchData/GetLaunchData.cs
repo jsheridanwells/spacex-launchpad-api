@@ -9,6 +9,11 @@ namespace LaunchData.Lib.LaunchData
 {
     public class GetLaunchData : IGetLaunchData
     {
+        /// <summary>
+        /// Calls the /launchpads endpoint of the spacexdata api.
+        /// Deserializes json response
+        /// </summary>
+        /// <returns>List of launch data</returns>
         public async Task<List<Launch>> ReturnLaunchData()
         {
             using (var client = new HttpClient())

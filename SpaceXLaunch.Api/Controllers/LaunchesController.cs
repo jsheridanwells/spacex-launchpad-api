@@ -18,5 +18,18 @@ namespace SpaceXLaunch.Api.Controllers
             var launches = await _service.GetLaunchData();
             return Ok(launches);
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetLaunchpadById([FromRoute] string id)
+        {
+            var launchpad = await _service.GetLaunchpadDataById(id);
+
+            if (launchpad == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(launchpad);
+        }
     }
 }

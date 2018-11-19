@@ -6,6 +6,7 @@ namespace LaunchData.Lib.LaunchData
 {
     public interface IGetLaunchData
     {
-         Task<List<Launch>> ReturnLaunchData();
+         Task<List<Launchpad>> ReturnLaunchData();
+         Task<Launchpad> ReturnLaunchpadDataById(string id);
     }
 }

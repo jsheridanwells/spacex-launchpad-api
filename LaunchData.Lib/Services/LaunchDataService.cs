@@ -12,9 +12,14 @@ namespace LaunchData.Lib.Services
         {
             _getLaunchData = getLaunchData; 
         }
-        public async Task<List<Launch>> GetLaunchData()
+        public async Task<List<Launchpad>> GetLaunchData()
         {
             return await _getLaunchData.ReturnLaunchData();
+        }
+
+        public async Task<Launchpad> GetLaunchpadDataById(string id)
+        {
+            return await _getLaunchData.ReturnLaunchpadDataById(id);
         }
     }
 }

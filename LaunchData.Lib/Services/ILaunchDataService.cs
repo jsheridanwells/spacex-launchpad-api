@@ -6,6 +6,7 @@ namespace LaunchData.Lib.Services
 {
     public interface ILaunchDataService
     {
-         Task<List<Launch>> GetLaunchData();
+         Task<List<Launchpad>> GetLaunchData();
+         Task<Launchpad> GetLaunchpadDataById(string id);
     }
 }

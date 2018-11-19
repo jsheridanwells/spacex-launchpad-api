@@ -15,7 +15,7 @@ namespace SpaceXLaunch.Tests
     public class LaunchesControllerUnitTests
     {
         [Fact]
-        public async Task Launches_Get_All()
+        public async Task Launchpads_Get_All()
         {
             // arrange
             var controller = new LaunchesController(new LaunchDataService(new GetLaunchData()));
@@ -25,11 +25,11 @@ namespace SpaceXLaunch.Tests
 
             // assert
             var okResult = result.Should().BeOfType<OkObjectResult>().Subject;
-            var launches = okResult.Value.Should().BeAssignableTo<IEnumerable<Launch>>().Subject;
+            var launches = okResult.Value.Should().BeAssignableTo<IEnumerable<Launchpad>>().Subject;
         }
 
         [Fact]
-        public async Task Launches_Get_All_From_Mock()
+        public async Task Launchpads_Get_All_From_Mock()
         {
             // arrange
             var mockService = new Mock<ILaunchDataService>();
@@ -38,21 +38,21 @@ namespace SpaceXLaunch.Tests
             Random rnd = new Random();
             int idx = rnd.Next(0, 3);
 
-            List<Launch> launches = new List<Launch>
+            List<Launchpad> launches = new List<Launchpad>
             {
-                new Launch
+                new Launchpad
                 {
                     Id = "xxx-yyyy-zzz",
                     Name = "First Launch",
                     Status = "active"
                 },
-                new Launch
+                new Launchpad
                 {
                     Id = "aaa-bbbb-ccc",
                     Name = "Second Launch",
                     Status = "retired"
                 },
-                new Launch
+                new Launchpad
                 {
                     Id = "qqq-rrrr-sss",
                     Name = "Third Launch",
@@ -60,9 +60,8 @@ namespace SpaceXLaunch.Tests
                 }
             };
 
-            mockService.Setup(s => s.GetLaunchData()).Returns(
-                () => Task.FromResult(launches)
-            );
+            mockService.Setup(s => s.GetLaunchData())
+                .Returns(() => Task.FromResult(launches));
 
             var controller = new LaunchesController(mockService.Object);
 
@@ -71,9 +70,50 @@ namespace SpaceXLaunch.Tests
 
             // assert
             var okResult = result.Should().BeOfType<OkObjectResult>().Subject;
-            var actual = okResult.Value.Should().BeAssignableTo<List<Launch>>().Subject;
+            var actual = okResult.Value.Should().BeAssignableTo<List<Launchpad>>().Subject;
             actual.Count.Should().Be(3);
             actual[idx].Id.Should().Be(launches[idx].Id);
+        }
+
+        [Fact]
+        public async Task Launchpads_Get_By_Id()
+        {
+            // arrange
+            var controller = new LaunchesController(new LaunchDataService(new GetLaunchData()));
+
+            // act
+            var result = await controller.GetLaunchpadById("ccafs_slc_40");
+
+            // assert
+            var okResult = result.Should().BeOfType<OkObjectResult>().Subject;
+        }
+
+        [Fact]
+        public async Task Launchpads_Get_By_Id_Mock()
+        {
+            // arrange
+            var mockService = new Mock<ILaunchDataService>();
+
+            Launchpad launchpad = new Launchpad
+            {
+                Id = "xxx-yyyy-zzz",
+                Name = "Test Launchpad",
+                Status = "active"
+
+            };
+
+            mockService.Setup(s => s.GetLaunchpadDataById("xxx-yyyy-zzz"))
+                .Returns(Task.FromResult(launchpad));
+            
+            var controller = new LaunchesController(mockService.Object);
+            
+            // act
+            var result = await controller.GetLaunchpadById("xxx-yyyy-zzz");
+            
+            // assert
+            var okResult = result.Should().BeOfType<OkObjectResult>().Subject;
+            var actual = okResult.Value.Should().BeAssignableTo<Launchpad>().Subject;
+            actual.Id.Should().Be("xxx-yyyy-zzz");
         }
     }
 }

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace LaunchData.Lib.Models
 {
-    public class Launch
+    public class Launchpad
     {
         public string Id { get; set; }
         [JsonProperty(PropertyName = "full_name")]

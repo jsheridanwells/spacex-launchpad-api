@@ -22,6 +22,8 @@ The third-party API connects to the main webapi project through the ILaunchDataS
 
 1. Clone this repo: `$ git clone git@github.com:jsheridanwells/spacex-launchpad-api.git`
 
+1. Select the root directory: `$ cd spacex-launchpad-api`
+
 1. To run the WebApi project: `$ dotnet run --project SpaceXLaunch.Api/SpaceXLaunch.Api.csproj`
 
 1. To run the unit tests: `$ dotnet test SpaceXLaunch.Tests/SpaceXLaunch.Tests.csproj`
